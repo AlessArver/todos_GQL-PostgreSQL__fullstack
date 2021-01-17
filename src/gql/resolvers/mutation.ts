@@ -1,5 +1,4 @@
-import { todoMutations } from "./../mutations/todo";
-import { userMutations } from "./../mutations/user";
+import { todoMutations, userMutations } from "./../mutations";
 
 export const Mutation = {
   ...todoMutations,

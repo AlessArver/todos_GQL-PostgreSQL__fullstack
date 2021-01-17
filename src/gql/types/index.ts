@@ -1,23 +1,38 @@
-import { gql } from "apollo-server";
+import { gql } from "apollo-server-koa";
 
-export const schema = gql`
+export const typeDefs = gql`
   type User {
-    name: String!
+    id: String!
+    username: String!
     email: String!
-    email_confirmed: Boolean
+    # email_confirmed: Boolean
     password: String!
   }
 
   type Todo {
+    id: String!
     title: String!
     body: String
     is_completed: Boolean!
   }
 
   input RegisterInput {
-    name: String!
+    username: String!
     email: String!
     password: String!
+  }
+
+  type ResRegister {
+    message: String!
+  }
+  type ResLogin {
+    token: String
+    message: String!
+  }
+  type ResMe {
+    token: String
+    user: User
+    message: String
   }
 
   input CreateTodoInput {
@@ -28,15 +43,16 @@ export const schema = gql`
   type Query {
     users: [User]
     user(id: ID!): User
+    me: ResMe
 
     todos: [Todo!]!
     todo(id: ID!): Todo
   }
 
   type Mutation {
-    register(user: RegisterInput!): User!
-    login(email: String!, password: String!): User!
-    updateUserName(id: ID!, name: String!): User
+    register(user: RegisterInput!): ResRegister!
+    login(email: String!, password: String!): ResLogin
+    updateUserName(id: ID!, username: String!): User
     updateUserEmail(id: ID!, email: String!): User
     updateUserPassword(id: ID!, password: String!): User
     removeUser(id: ID!): User

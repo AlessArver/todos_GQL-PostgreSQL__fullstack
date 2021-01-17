@@ -11,4 +11,12 @@ export const db = new Sequelize(db_name, db_user, db_password, {
   password: db_password,
   database: db_name,
   dialect: "postgres",
+  pool: {
+    max: 1,
+    min: 1,
+  },
 });
+db.sync();
+db.authenticate()
+  .then(() => console.log("DB was connected"))
+  .catch((e) => console.log(`Error: `, e));

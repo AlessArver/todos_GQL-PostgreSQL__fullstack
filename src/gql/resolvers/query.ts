@@ -1,5 +1,4 @@
-import { todoQueries } from "../queries/todo";
-import { userQueries } from "../queries/user";
+import { todoQueries, userQueries } from "../queries";
 
 export const Query = {
   ...todoQueries,

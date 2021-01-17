@@ -1,6 +1,6 @@
-import { ApolloError } from "apollo-server";
+import { ApolloError } from "apollo-server-koa";
 
-import { getUsers, getUser } from "../../controllers/user";
+import { me, getUsers, getUser } from "../../controllers/user";
 
 export const userQueries = {
   users: () => {
@@ -15,6 +15,13 @@ export const userQueries = {
   user: (_: any, { id }: any) => {
     try {
       return getUser(id);
+    } catch ({ message }) {
+      throw new ApolloError(message);
+    }
+  },
+  me: async (_: any, data: any, ctx: any) => {
+    try {
+      return me(ctx);
     } catch ({ message }) {
       throw new ApolloError(message);
     }

@@ -1,7 +1,8 @@
-import { ApolloError } from "apollo-server";
+import { ApolloError } from "apollo-server-koa";
 
 import {
   createUser,
+  login,
   updateUserName,
   updateUserEmail,
   updateUserPassword,
@@ -11,15 +12,19 @@ import {
 export const userMutations = {
   register: (_: any, { user }: any) => {
     try {
-      const { name, email, password } = user;
-      return createUser(name, email, password);
+      const { username, email, password } = user;
+      return createUser(username, email, password);
     } catch ({ message }) {
       throw new ApolloError(message);
     }
   },
-  updateUserName: (id: number, name: string) => {
+  login: (_: any, data: any, ctx: any) => {
+    console.log("request type");
+    return login(data.email, data.password, ctx);
+  },
+  updateUserName: (id: number, username: string) => {
     try {
-      return updateUserName(id, name);
+      return updateUserName(id, username);
     } catch ({ message }) {
       throw new ApolloError(message);
     }

@@ -1,9 +1,11 @@
-import Head from 'next/head'
+import Head from "next/head";
+
+import { MainLayout } from "layouts/main";
 
 export default () => {
   return (
-    <div>
+    <MainLayout title="Home | Todos">
       <h1>Home</h1>
-    </div>
-  )
-}
+    </MainLayout>
+  );
+};

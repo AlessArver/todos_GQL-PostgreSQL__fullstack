@@ -1,12 +1,13 @@
-import Head from 'next/head'
+import Head from "next/head";
 
-import { Todo } from '../../components'
+import { MainLayout } from "layouts/main";
+import { Todo } from "../../components";
 
 export default () => {
   return (
-    <div>
+    <MainLayout title="Todos">
       <h1>Todos</h1>
-      <Todo title='Very cool todo!' body='This text about . . .' />
-    </div>
-  )
-}
+      <Todo title="Very cool todo!" body="This text about . . ." />
+    </MainLayout>
+  );
+};

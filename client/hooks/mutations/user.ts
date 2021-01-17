@@ -1,27 +1,23 @@
-import { useState } from 'react'
-import { useMutation } from '@apollo/client'
+import { useMutation } from "@apollo/react-hooks";
 
-import { REGISTER } from '../../apollo/mutations/user'
+import { REGISTER, LOGIN } from "../../apollo/mutations/user";
 
 export const useRegister = () => {
-    const [_register, { loading, error, data }] = useMutation(REGISTER)
-    const [values, setValues] = useState({
-        name: '',
-        surname: '',
-        email: ''
-    })
+  const [_register, { loading, error, data }] = useMutation(REGISTER);
 
-    const handleChange = (e: any) => {
-        setValues((prevValues) => ({
-            ...prevValues,
-            [e.target.name]: e.target.value
-        }))
-    }
+  const register = (email: string, password: string, username?: string) => {
+    _register({ variables: { user: { username, email, password } } });
+  };
 
-    const register = () => {
-        const { name, surname, email } = values
-        _register({ variables: { name, surname, email }})
-    }
+  return { register, loading, error, data };
+};
 
-    return { handleChange, register, loading, error }
-}
+export const useLogin = () => {
+  const [_login, { loading, error, data }] = useMutation(LOGIN);
+
+  const login = (email: string, password: string) => {
+    _login({ variables: { email, password } });
+  };
+
+  return { login, loading, error, data };
+};

@@ -1,23 +1,22 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 
-import { db } from "./../init";
-import { UserModel } from './user'
+import { db } from "../init";
+import { User } from "./User";
 
-export const TodoModel = db.define(
-  "Todo",
+export class Todo extends Model {}
+Todo.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     title: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     body: {
-      type: DataTypes.STRING
-    }
+      type: DataTypes.STRING,
+    },
   },
-  {
-    timestamps: true,
-  }
+  { sequelize: db, modelName: "todo" }
 );
-TodoModel.hasMany(UserModel, {
-  foreignKey: 'user_id',
-  as: 'owner'
-})
